@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Suppression interdite</title>
+    <style>
+      .container {
+        max-width: 600px;
+        background: white;
+        padding: 30px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+
+      h1 {
+        color: #c0392b;
+      }
+
+      p {
+        font-size: 25px;
+        line-height: 1;
+      }
+
+      .info {
+        background: #fdecea;
+        border-left: 5px solid #e74c3c;
+        padding: 15px;
+        margin: 20px 0;
+      }
+
+      a {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+
+      a:hover {
+        background: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Suppression interdite</h1>
+
+      <div class="info">
+        <p>
+          Le produit <strong><%= produit.nom %></strong> ne peut pas être
+          supprimé.
+        </p>
+        <p>
+          Quantité actuelle en stock : <strong><%= produit.quantite %></strong>
+        </p>
+      </div>
+
+      <p>
+        <strong>Règle métier :</strong>
+        Un produit ne peut être supprimé que si sa quantité est égale à 0.
+      </p>
+      <a href="/produits"> Accueil</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier produit</title>
+    <style>
+         #sty {
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 10px;
+        max-width: 400px;
+        margin-bottom: 20px;
+      }
+        nav a {
+        margin-right: 150px;
+        text-decoration: none;
+        color: blue;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 5px 10px;
+      }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/produits">Accueil</a>
+</nav>
+
+<h2>Modifier le produit <%= produit.id %></h2>
+
+<% if (erreur) { %>
+    <p style="color:red;"><%= erreur %></p>
+<% } %>
+<fieldset>
+<form 
+    method="POST"
+    action="/produits/<%= produit.id %>/modifier">
+    Nom : <input type="text" name="nom" value="<%= produit.nom %>"><br><br>
+    Prix : <input type="number" name="prix" value="<%= produit.prix %>"><br><br>
+    Quantité : <input type="number" name="quantite" value="<%= produit.quantite %>"><br><br>
+
+    Catégorie :
+    <select name="categorie">
+        <option <%= produit.categorie === 'Fourniture' ? 'selected' : '' %>>Fourniture</option>
+        <option <%= produit.categorie === 'Accessoire' ? 'selected' : '' %>>Accessoire</option>
+        <option <%= produit.categorie === 'Électronique' ? 'selected' : '' %>>Électronique</option>
+    </select><br><br>
+
+    <button type="submit">Modifier</button>
+</form>
+</fieldset>
+
+</body>
+</html>

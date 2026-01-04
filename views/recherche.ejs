@@ -1,0 +1,166 @@
+<form method="GET" action="/recherche">
+    <style>
+/* Conteneur du formulaire */
+form {
+    border-radius: 8px;
+    padding: 15px 20px;
+    max-width: 600px;
+}
+
+/* Espacement des champs */
+form div {
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+/* Labels plus lisibles */
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Champs input & select */
+form input[type="number"],
+form select {
+    width: 50%;
+    padding: 8px 10px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Style du bouton principal */
+form button {
+    background: #3498db;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Bouton Réinitialiser */
+form .btn-reset {
+    background: #7f8c8d;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+        nav a {
+        text-decoration: none;
+        color: blue;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 5px 10px;
+      }
+</style>
+    <nav><a href="/produits">Acceuil</a></nav>
+    <div>
+        <label>Catégorie :</label>
+        <select name="categorie">
+            <option value="">Toutes</option>
+            <option value="Fourniture">Fourniture</option>
+            <option value="Accessoire">Accessoire</option>
+            <option value="Électronique">Électronique</option>
+            <option value="Autre">Autre</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Prix minimum :</label>
+        <input type="number" name="min" placeholder="Min" value="">
+    </div>
+
+    <div>
+        <label>Prix maximum :</label>
+        <input type="number" name="max" placeholder="Max" value="">
+    </div>
+
+    <div>
+        <label>
+            <input type="checkbox" name="stock" value="1" <%= query.stock ? "checked" : "" %>>
+            En stock uniquement
+        </label>
+    </div>
+
+    <button type="submit">Rechercher</button>
+    <a href="/recherche" class="btn-reset">Réinitialiser</a>
+</form>
+
+
+      <!-- Résultats de la recherche -->
+<% const produitsFiltres = produit.filter(p => {
+    if (query.categorie && query.categorie !== "" && p.categorie !== query.categorie) {
+        return false;
+    }
+
+    if (query.min && p.prix < Number(query.min)) {
+        return false;
+    }
+
+    if (query.max && p.prix > Number(query.max)) {
+        return false;
+    }
+
+    if (query.stock && p.quantite <= 0) {
+        return false;
+    }
+
+    return true;
+}); %>
+<!-- Affiche le nombre de résultats -->
+<p class="result-info">
+
+        <h2>Résultats trouvés : <%= produitsFiltres.length %></h2>
+</p>
+
+<!-- Critères réellement saisis -->
+<div>
+    <h2>Critères de recherche</h2>
+    <% if (query.categorie && query.categorie.trim() !== "") { %>
+        <p>Catégorie recherchée : <strong><%= query.categorie %></strong></p>
+    <% } %>
+
+    <% if (query.min && query.min !== "") { %>
+        <p>Prix minimum recherché : <strong><%= query.min %> FCFA</strong></p>
+    <% } %>
+
+    <% if (query.max && query.max !== "") { %>
+        <p>Prix maximum recherché : <strong><%= query.max %> FCFA</strong></p>
+    <% } %>
+
+    <% if (query.stock === "1") { %>
+        <p>Filtre : <strong>En stock uniquement</strong></p>
+    <% } %>
+</div>
+ <h2>Résultats de la recherche</h2>
+
+<% if (produitsFiltres.length === 0) { %>
+    <p>Aucun produit trouvé</p>
+<% } else { %>
+
+    <ul>
+        <% produitsFiltres.forEach(p => { %>
+            <li>
+                <strong><%= p.nom %></strong><br>
+                Catégorie : <%= p.categorie %><br>
+                Prix : <%= p.prix %> FCFA<br>
+
+                <% if (p.quantite > 0) { %>
+                    Quantité : <%= p.quantite %><br>
+                    Stock : Disponible
+                <% } else { %>
+                    Stock : Indisponible
+                <% } %>
+            </li>
+            <hr>
+        <% }) %>
+    </ul>
+<% } %>
+

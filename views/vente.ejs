@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=v, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th,
+        td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: blue;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-top: 20px;
+        }
+        input {
+            width: 100px;
+            padding: 5px;
+            margin-left: 10px;
+        }  
+        button {
+            background: #579c50;
+            color: #fff;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</body>
+</html>
+<nav><a href="/produits">Accueil</a></nav>
+    <h2>Vendre le produit <%= produit.id %></h2>
+<fieldset style="max-width: 300px; padding: 10px; border-radius: 5px; border: 1px solid black;">
+    <legend>Quantité à vendre</legend>
+<form action="/vente/<%= produit.id %>" method="post">
+    <div>
+        <input type="number" name="quantite"  value="<%= produit.quantite %>" min="1" max="<%= produit.quantite %>" required>
+        <button type="submit">Vendre</button>
+    </div>
+</form> 
+</fieldset>
+
+    
+<h2>Historique des ventes</h2>
+<% if (ventes.length === 0) { %>
+  <p>Aucune vente enregistrée</p>
+<% } else { %>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Produit</th>
+      <th>Quantité</th>
+      <th>Prix</th>
+      <th>Total</th>
+      <th>Date</th>
+    </tr>
+
+    <% ventes.forEach(v => { %>
+      <tr>
+        <td><%= v.id %></td>
+        <td><%= v.nom %></td>
+        <td><%= v.quantite %></td>
+        <td><%= v.prix_unitaire %></td>
+        <td><%= v.total %></td>
+        <td><%= v.date_vente %></td>
+      </tr>
+    <% }) %>
+  </table>
+<% } %>

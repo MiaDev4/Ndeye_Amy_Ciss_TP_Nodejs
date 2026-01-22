@@ -25,7 +25,7 @@
         border-radius: 5px;
         padding: 5px 10px;
       }
-      .btn-modifier {
+      .btn {
         text-decoration: none;
         border: 1px solid black;
         border-radius: 5px;
@@ -48,6 +48,7 @@
       <a href="/produits">Accueil</a>
       <a href="/ajouter">Ajouter</a>
       <a href="/recherche">Recherche</a>
+
     </nav>
 
     <h2>Liste des produits</h2>
@@ -71,18 +72,19 @@
         <td><%= p.categorie %></td>
 
         <td>
-          <a class="btn-modifier" href="/modifier/<%= p.id %>">Modifier</a>
+          <a class="btn" href="/modifier/<%= p.id %>">Modifier</a>
           <% if (p.quantite === 0) { %>
           <form
             method="POST"
             action="/produits/<%= p.id %>/supprimer"
-            onsubmit="return confirm('Voulez-vous vraiment supprimer ce produit ?');"
+            onsubmit="return confirm('Voulez-vous vraiment supprimer ce produit ?');",
             style="display: inline">
+            <button disabled class="btn">Vendre</button>
             <button class="btn-supprimer">Supprimer</button>
           </form>
 
           <% } else { %>
-          <!-- Afficher un bouton cliquable  -->
+          <a class="btn" href="/vente/<%= p.id %>">Vendre</a>
           <button disabled class="btn-supprimer">Supprimer</button>
           <% } %>
           

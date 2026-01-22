@@ -140,7 +140,68 @@ app.post("/produits/:id/modifier", (req, res) => {
     });
 });
 //Fin modification d'un produit
+//Vente d'un produit
+app.post("/vente/:id", (req, res) => {
+  const id = req.params.id;
+  const qte = parseInt(req.body.quantite);
 
+  db.query(
+    "SELECT prix, quantite FROM produits WHERE id = ?",
+    [id],
+    (err, result) => {
+      const produit = result[0];
+      if (qte > produit.quantite) {
+        return res.send("Stock insuffisant");
+      }
+
+      const total = produit.prix * qte;
+
+      db.query(
+        "INSERT INTO ventes (produit_id, quantite, prix_unitaire, total) VALUES (?, ?, ?, ?)",
+        [id, qte, produit.prix, total],
+        () => {
+          db.query(
+            "UPDATE produits SET quantite = quantite - ? WHERE id = ?",
+            [qte, id],
+            () => {
+              res.redirect("/vente/" + id);
+            }
+          );
+        }
+      );
+    }
+  );
+});
+app.get("/vente/:id", (req, res) => {
+  const id = req.params.id;
+
+  // 1️⃣ récupérer le produit à acheter
+  db.query(
+    "SELECT * FROM produits WHERE id = ?",
+    [id],
+    (err, produitResult) => {
+      if (err) return res.send("Erreur produit");
+
+      // 2️⃣ récupérer toutes les ventes
+      db.query(
+        `SELECT v.id, p.nom, v.quantite, v.prix_unitaire, v.total,
+         DATE_FORMAT(v.date_vente, '%d/%m/%Y %H:%i') AS date_vente
+         FROM ventes v
+         JOIN produits p ON v.produit_id = p.id
+         ORDER BY v.date_vente ASC`,
+        (err2, ventes) => {
+          if (err2) return res.send("Erreur ventes");
+
+          res.render("vente", {
+            produit: produitResult[0], // 🔹 OBJET
+            ventes: ventes             // 🔹 TABLEAU
+          });
+        }
+      );
+    }
+  );
+});
+//Fin vente d'un produit
 //Suppression d'un produit
 
 app.post("/produits/:id/supprimer", (req, res) => {

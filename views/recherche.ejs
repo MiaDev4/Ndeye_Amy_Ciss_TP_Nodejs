@@ -1,3 +1,6 @@
+<nav><a href="/produits">Acceuil</a></nav>
+
+<fieldset id="sty"><legend>Rechercher un produit</legend>
 <form method="GET" action="/recherche">
     <style>
 /* Conteneur du formulaire */
@@ -6,6 +9,14 @@ form {
     padding: 15px 20px;
     max-width: 600px;
 }
+  #sty {
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 10px;
+        max-width: 400px;
+        margin-top: 15px;
+        margin-bottom: 20px;
+      }
 
 /* Espacement des champs */
 form div {
@@ -60,7 +71,6 @@ form .btn-reset {
         padding: 5px 10px;
       }
 </style>
-    <nav><a href="/produits">Acceuil</a></nav>
     <div>
         <label>Catégorie :</label>
         <select name="categorie">
@@ -92,6 +102,7 @@ form .btn-reset {
     <button type="submit">Rechercher</button>
     <a href="/recherche" class="btn-reset">Réinitialiser</a>
 </form>
+</fieldset>
 
 
       <!-- Résultats de la recherche -->

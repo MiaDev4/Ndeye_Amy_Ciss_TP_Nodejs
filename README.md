@@ -75,24 +75,39 @@ Une barre de navigation permet d'accéder rapidement aux principales pages :
 
 ## 5. Structure du projet
 
-L'application est organisée autour d'un fichier serveur principal et d'un dossier contenant les vues EJS.
+Le projet `ProjetAllNodejs` est organisé de manière simple. Le fichier `server.js` contient le code principal du serveur, tandis que le dossier `views/` regroupe les pages de l'interface utilisateur. Le fichier `magasin.sql` est destiné à la création de la base de données.
 
-```text
-Ndeye_Amy_Ciss_TP_Nodejs/
+ProjetAllNodejs/
 │
-├── server.js          # Serveur Express et gestion des routes
-├── package.json       # Informations et dépendances du projet
-├── package-lock.json  # Versions détaillées des dépendances
-├── magasin.sql        # Script SQL de création de la base
+├── node_modules/ # Dépendances installées avec npm
 │
-└── views/             # Pages de l'application
-    ├── accueil.ejs    # Liste des produits
-    ├── ajouter.ejs    # Formulaire d'ajout
-    ├── modifier.ejs   # Formulaire de modification
-    └── rechercher.ejs # Page de recherche
-```
+├── views/ # Pages de l'interface utilisateur
+│ ├── ajouter.ejs # Formulaire d'ajout d'un produit
+│ ├── index.ejs # Page d'accueil et liste des produits
+│ ├── modifier.ejs # Formulaire de modification d'un produit
+│ ├── rechercher.ejs # Page de recherche des produits
+│ ├── supprimer.ejs # Vue liée à la suppression
+│ └── vente.ejs # Page de gestion des ventes
+│
+├── magasin.sql # Script SQL de la base de données
+├── package.json # Configuration et dépendances du projet
+├── package-lock.json # Verrouillage des versions des dépendances
+├── README.md # Documentation du projet
+└── server.js # Serveur Express et gestion des routes
 
-_Remarque : les noms de fichiers présentés sont indicatifs. Ils doivent correspondre aux fichiers réellement présents dans le projet. Les pages de vente peuvent également être ajoutées dans le dossier `views/` si elles existent._
+### Description des principaux fichiers
+
+- **server.js :** contient la configuration du serveur Express, la connexion à MySQL, les routes et la logique de gestion des produits et des ventes.
+- **views/index.ejs :** affiche la liste des produits disponibles dans le magasin.
+- **views/ajouter.ejs :** permet de saisir les informations d'un nouveau produit.
+- **views/modifier.ejs :** permet de modifier les informations d'un produit existant.
+- **views/rechercher.ejs :** permet de rechercher un produit.
+- **views/supprimer.ejs :** correspond à la vue associée à la suppression, selon son utilisation dans le code.
+- **views/vente.ejs :** permet d'afficher l'interface liée aux ventes.
+- **magasin.sql :** contient le script SQL utilisé pour créer ou préparer la base de données.
+- **package.json :** définit les informations du projet, ses dépendances et les commandes npm.
+- **package-lock.json :** conserve les versions précises des dépendances installées.
+- **node_modules/ :** contient les bibliothèques nécessaires à l'exécution du projet. Ce dossier est généré lors de l'installation des dépendances.
 
 ## 6. Base de données
 

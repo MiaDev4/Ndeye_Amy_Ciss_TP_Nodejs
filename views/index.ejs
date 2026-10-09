@@ -64,13 +64,12 @@
       </tr>
 
       <% produits.forEach(p => { %>
-      <tr class="<%= p.quantite === 0 ? 'rupture' : '' %>">
+      <tr>
         <td><%= p.id %></td>
         <td><%= p.nom %></td>
         <td><%= p.prix %></td>
         <td><%= p.quantite %></td>
         <td><%= p.categorie %></td>
-
         <td>
           <a class="btn" href="/modifier/<%= p.id %>">Modifier</a>
           <% if (p.quantite === 0) { %>
@@ -79,13 +78,10 @@
             action="/produits/<%= p.id %>/supprimer"
             onsubmit="return confirm('Voulez-vous vraiment supprimer ce produit ?');",
             style="display: inline">
-            <button disabled class="btn">Vendre</button>
-            <button class="btn-supprimer">Supprimer</button>
           </form>
 
           <% } else { %>
           <a class="btn" href="/vente/<%= p.id %>">Vendre</a>
-          <button disabled class="btn-supprimer">Supprimer</button>
           <% } %>
           
         </td>

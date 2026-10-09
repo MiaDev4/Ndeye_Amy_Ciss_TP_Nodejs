@@ -175,14 +175,14 @@ app.post("/vente/:id", (req, res) => {
 app.get("/vente/:id", (req, res) => {
   const id = req.params.id;
 
-  // 1️⃣ récupérer le produit à acheter
+  //récupérer le produit à acheter
   db.query(
     "SELECT * FROM produits WHERE id = ?",
     [id],
     (err, produitResult) => {
       if (err) return res.send("Erreur produit");
 
-      // 2️⃣ récupérer toutes les ventes
+      //  récupérer toutes les ventes
       db.query(
         `SELECT v.id, p.nom, v.quantite, v.prix_unitaire, v.total,
          DATE_FORMAT(v.date_vente, '%d/%m/%Y %H:%i') AS date_vente
